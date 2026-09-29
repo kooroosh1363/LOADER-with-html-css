@@ -1,0 +1,10 @@
+{
+  "name": "motionlab-loader-system",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check assets/motion-model.js && node --check assets/main.js && npm test"
+  }
+}

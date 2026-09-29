@@ -1,12 +1,180 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loader google</title>
-    <link rel="stylesheet" href="./assets/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="description"
+    content="MotionLab is a CSS loader timing and accessibility lab with live controls for size, stroke, duration, easing, motion patterns, pause state, and reduced-motion behavior."
+  >
+  <meta name="color-scheme" content="light dark">
+  <title>MotionLab — CSS Loader Timing & Accessibility Lab</title>
+  <link rel="stylesheet" href="./assets/styles.css">
 </head>
 <body>
-    <span class="load" ></span>
+  <a class="skip-link" href="#workspace">Skip to loader workspace</a>
+
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">CSS animation engineering</p>
+      <h1>MotionLab</h1>
+      <p class="subtitle">
+        Tune loader timing, size, stroke, easing, and motion patterns while keeping accessibility
+        and reduced-motion behavior visible instead of treating animation as decoration only.
+      </p>
+    </div>
+    <div class="header-note">
+      CSS-only loaders · JavaScript controls parameters, not drawing.
+    </div>
+  </header>
+
+  <main id="workspace" class="workspace">
+    <section class="preview-panel" aria-labelledby="preview-title">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">Preview</p>
+          <h2 id="preview-title">Live loader</h2>
+        </div>
+        <div class="preview-actions">
+          <button id="play-toggle" type="button" aria-pressed="false">Pause</button>
+          <button id="reset" type="button">Reset</button>
+        </div>
+      </div>
+
+      <div class="preview-stage">
+        <div
+          class="loader-demo"
+          data-type="spinner"
+          role="status"
+          aria-live="polite"
+          aria-label="Loading preview"
+        >
+          <span class="loader-spinner" aria-hidden="true"></span>
+          <span class="loader-dots" aria-hidden="true">
+            <i></i><i></i><i></i>
+          </span>
+          <span class="loader-pulse" aria-hidden="true"></span>
+          <span class="loader-label">Loading</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="controls-panel" aria-labelledby="controls-title">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">Controls</p>
+          <h2 id="controls-title">Tune the motion</h2>
+        </div>
+      </div>
+
+      <div class="control-list">
+        <label class="control-row" for="size">
+          <span>Loader size</span>
+          <strong data-size-value>56px</strong>
+          <input id="size" type="range" value="56">
+        </label>
+
+        <label class="control-row" for="stroke">
+          <span>Stroke width</span>
+          <strong data-stroke-value>6px</strong>
+          <input id="stroke" type="range" value="6">
+        </label>
+
+        <label class="control-row" for="duration">
+          <span>Animation duration</span>
+          <strong data-duration-value>900ms</strong>
+          <input id="duration" type="range" step="50" value="900">
+        </label>
+
+        <label class="select-row" for="easing">
+          <span>Easing</span>
+          <select id="easing">
+            <option value="linear">Linear</option>
+            <option value="ease">Ease</option>
+            <option value="ease-in-out">Ease in-out</option>
+          </select>
+        </label>
+
+        <label class="select-row" for="type">
+          <span>Loader type</span>
+          <select id="type">
+            <option value="spinner">Spinner</option>
+            <option value="dots">Dots</option>
+            <option value="pulse">Pulse</option>
+          </select>
+        </label>
+
+        <label class="toggle-row" for="reduced-preview">
+          <span>
+            <strong>Reduced-motion preview</strong>
+            <small>Simulate a calmer fallback state.</small>
+          </span>
+          <input id="reduced-preview" type="checkbox">
+        </label>
+      </div>
+
+      <dl class="metrics">
+        <div>
+          <dt>Cycles/min</dt>
+          <dd data-rpm-value>67</dd>
+        </div>
+        <div>
+          <dt>Frequency</dt>
+          <dd data-hz-value>1.11Hz</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="code-panel" aria-labelledby="code-title">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">Generated output</p>
+          <h2 id="code-title">CSS variables</h2>
+        </div>
+        <button id="copy-css" type="button">Copy CSS</button>
+      </div>
+
+      <pre><code id="css-output"></code></pre>
+      <p class="code-note">
+        Production loaders should use <code>prefers-reduced-motion</code> and should not communicate
+        critical progress through motion alone.
+      </p>
+    </section>
+
+    <section class="explain-panel" aria-labelledby="explain-title">
+      <div>
+        <p class="eyebrow">Engineering notes</p>
+        <h2 id="explain-title">Animation is behavior.</h2>
+      </div>
+
+      <div class="explain-grid">
+        <article>
+          <strong>01 / Timing</strong>
+          <p>Duration changes perceived urgency. Very fast loops can feel noisy; very slow loops can feel stalled.</p>
+        </article>
+        <article>
+          <strong>02 / Easing</strong>
+          <p>Linear works naturally for rotation. Ease curves suit pulsing and dot sequences better.</p>
+        </article>
+        <article>
+          <strong>03 / Motion safety</strong>
+          <p>Reduced-motion mode suppresses continuous movement and preserves a static loading cue.</p>
+        </article>
+        <article>
+          <strong>04 / Semantics</strong>
+          <p>The loader has status semantics and a text label, so meaning does not depend on animation alone.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <p class="sr-only" data-status aria-live="polite"></p>
+
+  <footer>
+    <span>MotionLab</span>
+    <span>HTML · CSS animation · Vanilla JavaScript · Node tests</span>
+  </footer>
+
+  <script type="module" src="./assets/main.js"></script>
 </body>
 </html>
